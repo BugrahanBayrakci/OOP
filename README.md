@@ -50,7 +50,7 @@ Erişim Belirteçleri
 | ----------- | ---------------------------------------------------------- |
 | `public`    | Her yerden erişilebilir.                                   |
 | `private`   | Sadece sınıfın içinden erişilebilir.                       |
-| `protected` | Sadece sınıfın içinden ve kalıtım yoluyla alt sınıflardan. |
+| `protected` | Sadece sınıfın içinden ve kalıtım yoluyla alt sınıflardan kullanılabilir. Nesne oluşturulup kullanılamaz. |
 
 
  ## Yapıcı ve Yıkıcı metodlar
@@ -155,7 +155,7 @@ Yıkıcı Metot (Destructor)
 * ~ işareti ile tanımlanır ve parametre almaz.
 * Kendiniz çağıramazsınız.
 
-```
+```cpp
 #include <iostream>
 using namespace std;
 class SanalKrediKarti {
@@ -258,7 +258,14 @@ ziraat.sifre = 123;
 
 ziraatsanal *ziraatptr = &ziraatkart;
 ziraatptr->sifre;
+
+ziraatsanal& ziraatref=ziraatkart;
+ziraatref.isim="test";
+kullanılabilir.
+
+
 ```
+Pointer kullanınca "." kullanılamıyor.
 
 ### Kalıtım ve yapıcı yıkıcı metodlar
 
@@ -307,3 +314,54 @@ int main() {
     return 0;
 }
 ```
+‼️  Yıkıcı metodlara herhangibir parametre gönderilemez.
+
+‼️  Bir sınıftan miras alan  classtan nesne oluşturulduğu zaman hem o classtan hemde miras aldığı classtan nesne oluşturulur.
+
+‼️ Yok edilirken önce türetilmiş sınıf yok edilir sonra ana sınıf.
+
+
+### C++ REFERANS
+Bir değişkenin başka bir isimle kullanılmasına izin veren bir özelliktir. Referanslar genellikle fonksiyonlara parametre olarak veri göndermek veya fonksiyonlardan veri döndürmek için kullanılır.
+```cpp
+int a = 10;
+int& ref = a;  // ref artık a'nın başka bir adı gibi davranır
+```
+```cpp
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 5;
+    int& y = x; // y, x'in referansı
+
+    y = 10; // x de değişir
+    cout << "x: " << x << endl; // x: 10
+}
+```
+### Fonksiyona Referans ile parametre geçirme
+```cpp
+
+void arttir(int& sayi) {
+    sayi++;
+}
+
+int main() {
+    int a = 7;
+    arttir(a);
+    cout << a << endl; // 8
+}
+```
+int& sayi: Bu şekilde gönderilen değer kopyalanmaz, doğrudan değişkenin kendisi üzerinde işlem yapılır.
+
+| Özellik                                   | Referans | Pointer                       |
+| ----------------------------------------- | -------- | ----------------------------- |
+| `NULL` olabilir mi?                       | ❌ Hayır  | ✅ Evet                        |
+| Sonradan başka değişkene bağlanabilir mi? | ❌ Hayır  | ✅ Evet                        |
+| Kullanımı kolay mı?                       | ✅ Evet   | ❌ Hayır  |
+
+
+##	NESNELERDE CAST İŞLEMİ
+
+<img src="./source/castindiagram.png" alt="alt yazı" width="500">
