@@ -365,3 +365,202 @@ int& sayi: Bu şekilde gönderilen değer kopyalanmaz, doğrudan değişkenin ke
 ##	NESNELERDE CAST İŞLEMİ
 
 <img src="./source/castindiagram.png" alt="alt yazı" width="500">
+
+Up cast işlemlerinde genelde sorun çıkmaz.
+
+```cpp
+int main(){
+	ziraat ziraat;
+	banka* bankaptr=&ziraat
+}
+```
+
+UPCAST.
+
+bankaptr sadece banka sınıfının erişilebilir üyelerine (public/protected) ulaşabilir.
+
+ziraat sınıfına özgü fonksiyonlar, değişkenler vs. görünmez olur.
+
+
+## ENCAPSULATION
+
+Bir sınıfın içindeki herhangi bir nesneyi dışarıya doğrudan açmadan (veri değişken vs.) farklı yollarla erişmenin istenmesine denir.
+
+Veriler private yapılır.
+Bu verilere erişim için public fonksiyonlar (getter/setter denilir) tanımlanır.
+Nesne dışarıdan değiştirilemez fonksiyonlar ile kontrol sağlanıp değiştirme yapılır.
+
+Kapsülleme ile sağladığımız avantajları şöyle özetleyebiliriz.
+
+* Veri koruması
+* Nesne davranışı kontrolü
+* Sistem çökmelerine karşı direnç
+
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class calisan {
+private:
+	string ad;
+	double maas;
+	string departman;
+public:
+
+	void setterFunc(int maas, string departman, string ad) {
+		if (maas >= 8500) {
+			this->maas = maas;
+
+		}
+		else {
+			cout << "Maas 8500 TL den fazla olmalıdır";
+		}
+		this->ad = ad;
+		this->departman = departman;
+	
+}
+	void BilgiYazdır() {
+		cout << "Ad " << this->ad;
+		cout << "Maas " << this->maas;
+		cout << "departman" << this->departman;
+
+
+	}
+
+double getterMaas() {
+		return maas;
+	}
+
+
+};
+
+class Yonetici :public calisan {
+private:
+	double ekstraPrim;
+public:
+
+	int BilgiYazdır(int ekstraPrim) {
+		double maas = getterMaas();
+		return maas + ekstraPrim;
+}
+	void setterPrim(double prim) {
+		this->ekstraPrim = prim;
+	}
+};
+
+
+
+int main()
+{
+	calisan c1;
+	c1.setterFunc( 9000, "Satın Alma","Ali");
+	c1.BilgiYazdır();
+
+	cout << "---------------------------" << endl;
+
+	Yonetici y1;
+	y1.setterFunc(12000, "BT","Zeynep");
+	y1.setterPrim(3000);
+	y1.BilgiYazdır(3000);
+
+
+}
+
+```
+Örnek kod yapısı.
+
+This kısmını yazarken orası aslında pointer olarak otomatik oluşturuluyor bu yüzden . yerine -> şeklinde kullanım yapıyoruz.
+
+
+## Virtual Method
+C++'da virtual anahtar kelimesi, bir taban (base) sınıfta tanımlanan fonksiyonun, türemiş (derived) sınıflarda yeniden tanımlanabilmesini (override edilebilmesini) sağlar.
+
+
+```cpp
+class Sekil {
+public:
+    virtual void ciz() {
+        cout << "Şekil çiziliyor" << endl;
+    }
+};
+
+class Daire : public Sekil {
+public:
+    void ciz() override {
+        cout << "Daire çiziliyor" << endl;
+    }
+};
+
+class Kare : public Sekil {
+public:
+    void ciz() override {
+        cout << "Kare çiziliyor" << endl;
+    }
+};
+
+int main() {
+    Sekil* s1 = new Daire();
+    Sekil* s2 = new Kare();
+
+    s1->ciz(); 
+    s2->ciz();  
+}
+```
+Çıktı:
+
+  Daire çiziliyor
+
+  Kare çiziliyor
+
+
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Sekil {
+public:
+     void ciz() {
+        cout << "Şekil çiziliyor" << endl;
+    }
+};
+
+class Daire : public Sekil {
+public:
+    void ciz()  {
+        cout << "Daire çiziliyor" << endl;
+    }
+};
+
+class Kare : public Sekil {
+public:
+    void ciz()  {
+        cout << "Kare çiziliyor" << endl;
+    }
+};
+
+int main() {
+    Sekil* s1 = new Daire();
+    Sekil* s2 = new Kare();
+
+    s1->ciz();  
+    s2->ciz();  
+}
+```
+Çıktı:
+
+şekil çiziliyor
+
+şekil çiziliyor
+
+
+SONUÇ
+
+Bir base sınıfın özellik ve metotlarını,  türetilen bir sınıfa aktardığımızda temel sınıfa ait metotları türemiş sınıf içerisinde de kullanabiliriz. Ancak her iki sınıfta da aynı metot bulunduğunda temel sınıftaki metot kullanılacak, türemiş sınıftaki metot ise kullanılmayacaktır.
+
+✅virtual yoksa → temel sınıfın fonksiyonu çalışır.
+
+✅virtual varsa → gerçek nesne tipine göre uygun fonksiyon çalışır (override yapılmışsa). 
+
+ ## Polymorphism (Çok Biçimlilik)
