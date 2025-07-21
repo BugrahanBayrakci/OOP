@@ -564,3 +564,30 @@ Bir base sınıfın özellik ve metotlarını,  türetilen bir sınıfa aktardı
 ✅virtual varsa → gerçek nesne tipine göre uygun fonksiyon çalışır (override yapılmışsa). 
 
  ## Polymorphism (Çok Biçimlilik)
+Aynı isimli bir fonksiyonun farklı sınıflarda farklı işler yapabilmesi demektir.
+
+
+### 2 Tür Polymorphism Vardır
+
+1. Compile-Time (Derleme Zamanı) Polymorphism
+Function overloading (aynı isimli ama farklı parametreli fonksiyonlar)
+
+
+2. Run-Time (Çalışma Zamanı) Polymorphism  en çok bu kullanılır
+"Virtual functions" kullanılarak yapılır. Dinamik bağlama (dynamic binding) sağlar.
+
+ ####  Metotlarını Ezme (Override)
+
+ Türetilmiş (alt) sınıfın, temel (üst) sınıftaki bir fonksiyonu kendi istediği şekilde yeniden tanımlamasıdır.
+
+ Diyelim ki ezdiğimiz metodun base classtaki halinin de çalışmasını istiyoruz.
+
+ ```cpp
+ lass Kedi : public Hayvan {
+public:
+    void sesCikar() override {
+        Hayvan::sesCikar();// bu satırda 
+        cout << "Miyav!" << endl;
+    }
+};
+```
