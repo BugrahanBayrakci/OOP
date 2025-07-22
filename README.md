@@ -638,4 +638,24 @@ Değişiklikler sadece soyutlama içinde yapılır, diğer kod etkilenmez.
 
 
 :exclamation: Türetilmiş sınıf metotu ezmezse soyut sınıfa dönüşür. Miras alan sınıf böylece nesne oluşturamaz.
+:exclamation: Soyut sınıflarda değişkenler olabilir. Soyut sınıflarda değişken olmaz olursa interface diyoruz.
+
+
+### SABİTLER
+
+1. Const nesne oluşturma
+```cpp
+const Kitap k("Sefiller");
+cout << k.getAd();  
+k.setAd("Yeni Ad");    
+```
+Son satır hata verecektir.Eğer nesneyi const olarak oluşturursak bu nesnenin içindeki herşey otomatik olarak const olacaktır ve değiştirilemeyecektir.
+
+2. Const Fonksiyonlar
+```cpp
+
+int get() const {
+	deger =600 // hata verir değiştirilemez.
+}
+```
 
