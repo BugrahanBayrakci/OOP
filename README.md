@@ -591,3 +591,51 @@ public:
     }
 };
 ```
+### Soyutlama (Abstraction)
+Soyutlama, bir nesnenin yalnızca gerekli olan özelliklerini ve davranışlarını dışarı sunarken, gereksiz detayları gizleme işlemidir.
+
+
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Sekil {
+public:
+    virtual void ciz() = 0; // saf sanal fonksiyon (pure virtual) bu sınıf sekil sınıfını soyutlar
+};
+
+class Daire : public Sekil {
+public:
+    void ciz()  {
+        cout << "Daire ciziliyor." << endl;
+    }
+};
+
+class Kare : public Sekil {
+public:
+    void ciz()  {
+        cout << "Kare ciziliyor." << endl;
+    }
+};
+
+int main() {
+    Sekil* sekil1 = new Daire();
+    Sekil* sekil2 = new Kare();
+
+    sekil1->ciz();
+    sekil2->ciz();
+
+    delete sekil1;
+    delete sekil2;
+
+    return 0;
+}
+```
+Sekil sınıfından nesne üretilemez.
+
+Değişiklikler sadece soyutlama içinde yapılır, diğer kod etkilenmez.
+
+
+:exclamation: Türetilmiş sınıf metotu ezmezse soyut sınıfa dönüşür. Miras alan sınıf böylece nesne oluşturamaz.
+
