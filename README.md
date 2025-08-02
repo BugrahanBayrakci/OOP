@@ -659,3 +659,30 @@ int get() const {
 }
 ```
 
+### STATİC
+C++’ta static ile tanımlanan bir değişkenin yaşam süresi programın sonuna kadar devam eder.
+
+Özellikleri:
+
+Sadece bir kere oluşturulur.
+
+Fonksiyon tekrar çağrılsa bile eski değerini korur.
+
+Varsayılan olarak 0 ile başlatılır.
+```cpp
+
+
+void sayac() {
+    static int x = 0; // Sadece bir kez oluşturulur
+    x++;
+    cout << "x = " << x << endl;
+}
+
+int main() {
+    sayac(); // x = 1
+    sayac(); // x = 2
+    sayac(); // x = 3
+    return 0;
+}
+```
+Statik ile oluşturulmuş olmasaydı çıktılar 1 1 1  olacaktı.
