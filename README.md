@@ -686,3 +686,8 @@ int main() {
 }
 ```
 Statik ile oluşturulmuş olmasaydı çıktılar 1 1 1  olacaktı.
+
+
+## FRIEND KAVRAMI
+
+Bir sınıfın private (özel) veya protected (korumalı) üyelerine başka bir sınıfın veya fonksiyonun erişmesini sağlamaktır.
