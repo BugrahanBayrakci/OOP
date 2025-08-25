@@ -690,4 +690,19 @@ Statik ile oluşturulmuş olmasaydı çıktılar 1 1 1  olacaktı.
 
 ## FRIEND KAVRAMI
 
-Bir sınıfın private (özel) veya protected (korumalı) üyelerine başka bir sınıfın veya fonksiyonun erişmesini sağlamaktır.
+Bir sınıfın private  veya protected  üyelerine başka bir sınıfın veya fonksiyonun erişmesini sağlamaktır.
+
+```cpp
+class Kisi {
+private:
+    int yas;
+public:
+    Kisi(int y) : yas(y) {}
+    friend void yasYazdir(const Kisi& k); // friend fonksiyon
+};
+
+void yasYazdir(const Kisi& k) {
+    std::cout << "Yaş: " << k.yas << std::endl; // erişim sağlanır
+}
+
+```
